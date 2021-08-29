@@ -4,17 +4,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CabService {
-	
-	float distance;
-	float time;
+
 	float totalFare;
+	int totalRides;
+	float avgFarePerRide;
+	float aggregateTotal;
 	final int PRICE_PER_KM = 10;
 	final int PRICE_PER_MIN = 1;
 	final int MIN_FARE = 5;
 	
-    public float invoiceGenerator(ArrayList<Cab> cabList) {
+	public int getTotalRides() {
+    	return totalRides;
+    }
+	public float getAvgFarePerRide() {
+    	return avgFarePerRide;
+    }
+	public float getAggregateTotal() {
+    	return aggregateTotal;
+    }
+
+    public void invoiceGenerator(ArrayList<Cab> cabList) {
 		
-    	float aggregateTotal = 0;
+    	this.aggregateTotal = 0;
     	for(Cab object : cabList) {
 	    	if(object.distance < 1) {
 	    		totalFare = MIN_FARE;
@@ -23,11 +34,13 @@ public class CabService {
 	    		
 	    		totalFare = object.distance * PRICE_PER_KM + object.time * PRICE_PER_MIN;
 	    	}
-	    	aggregateTotal += totalFare;
+	    	this.aggregateTotal += totalFare;
     	}
-    	return aggregateTotal;
+    	this.totalRides = cabList.size();
+    	this.avgFarePerRide = aggregateTotal/cabList.size();
 	}
-	public static void main( String[] args ) {
+    
+  	public static void main( String[] args ) {
     	
 		ArrayList<Cab> cabList = new  ArrayList<>();
 		CabService service = new CabService();
@@ -45,7 +58,10 @@ public class CabService {
 			
 		}while(option == 1);
 		
-		System.out.print("\n\n----Invoice----");
-		System.out.print("\nAggregate Total : " + service.invoiceGenerator(cabList));
+		service.invoiceGenerator(cabList);
+		System.out.print("\n----Invoice----");
+		System.out.print("\nTotal Number of Rides : " + service.getTotalRides());
+		System.out.print("\nAggregate Total : " + service.getAggregateTotal());
+		System.out.print("\nAverage Total Fare per Ride : " + service.getAvgFarePerRide());
     }
 }

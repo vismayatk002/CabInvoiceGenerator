@@ -13,7 +13,8 @@ public class CabServiceTest {
     	ArrayList<Cab> cabList = new  ArrayList<>(); 
     	Cab cabObject = new Cab(2, 10);
     	cabList.add(cabObject);
-        Assertions.assertEquals(30, service.invoiceGenerator(cabList));
+    	service.invoiceGenerator(cabList);
+        Assertions.assertEquals(30, service.getAggregateTotal());
     }
     
     @Test
@@ -24,6 +25,7 @@ public class CabServiceTest {
     	cabList.add(cabObject1);
     	Cab cabObject2 = new Cab(2, 10);
     	cabList.add(cabObject2);
-        Assertions.assertEquals(60, service.invoiceGenerator(cabList));
+    	service.invoiceGenerator(cabList);
+        Assertions.assertEquals(60, service.getAggregateTotal());
     }  
 }
