@@ -1,5 +1,6 @@
 package com.cabinvoice_generator_day_30;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CabService {
@@ -7,31 +8,44 @@ public class CabService {
 	float distance;
 	float time;
 	float totalFare;
+	int PRICE_PER_KM = 10;
+	int PRICE_PER_MIN = 1;
 	int MIN_FARE = 5;
 	
-    public CabService(float distance, float time) {
-		this.distance = distance;
-		this.time = time;
-	}
-    
-    public float invoiceGenerator() {
+    public float invoiceGenerator(ArrayList<Cab> cabList) {
 		
-    	if(distance < 1) {
-    		totalFare = MIN_FARE;
+    	float aggregateTotal = 0;
+    	for(Cab object : cabList) {
+	    	if(object.distance < 1) {
+	    		totalFare = MIN_FARE;
+	    	}
+	    	else {
+	    		
+	    		totalFare = object.distance * PRICE_PER_KM + object.time * PRICE_PER_MIN;
+	    	}
+	    	aggregateTotal += totalFare;
     	}
-    	else {
-    		
-    		totalFare = distance * 10 + time * 1;
-    	}
-    	return totalFare;
+    	return aggregateTotal;
 	}
 	public static void main( String[] args ) {
     	
+		ArrayList<Cab> cabList = new  ArrayList<>();
+		CabService service = new CabService();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the Distance (Km): ");
-		System.out.println("Enter the Time (min) : ");
-		CabService cab = new CabService(2,10);
+		int option;
+		do {
+			System.out.print("Enter the Distance (Km): ");
+			float distance = sc.nextFloat();
+			System.out.print("Enter the Time (min) : ");
+			float time = sc.nextFloat();
+			Cab cabObject = new Cab(distance,time);
+			cabList.add(cabObject);
+			System.out.print("Do you want to continue press 1:");
+			option = sc.nextInt();
+			
+		}while(option == 1);
+		
+		System.out.print("\n\n----Invoice----");
+		System.out.print("\nAggregate Total : " + service.invoiceGenerator(cabList));
     }
-
-	
 }
