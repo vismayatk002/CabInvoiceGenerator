@@ -12,8 +12,8 @@ public class CabServiceTest {
     @Test
     public void validateInvoiceForOneRideShouldAnswerWithTrue() {
     	
-    	ArrayList<Cab> cabList = new  ArrayList<>(); 
-    	Cab cabObject = new Cab(1, 2, 10);
+    	ArrayList<Ride> cabList = new  ArrayList<>(); 
+    	Ride cabObject = new Ride(1, 2, 10, "Normal");
     	cabList.add(cabObject);
     	service.invoiceGenerator(cabList);
         Assertions.assertEquals(30, service.getAggregateTotal());
@@ -22,24 +22,24 @@ public class CabServiceTest {
     @Test
     public void validateInvoiceForMultipleRidesShouldAnswerWithTrue() {
     	
-    	ArrayList<Cab> cabList = new  ArrayList<>(); 
-    	Cab cabObject1 = new Cab(1, 2, 10);
+    	ArrayList<Ride> cabList = new  ArrayList<>(); 
+    	Ride cabObject1 = new Ride(1, 2, 10, "Normal");
     	cabList.add(cabObject1);
-    	Cab cabObject2 = new Cab(2, 2, 10);
+    	Ride cabObject2 = new Ride(1, 2, 10, "Premium");
     	cabList.add(cabObject2);
     	service.invoiceGenerator(cabList);
-        Assertions.assertEquals(60, service.getAggregateTotal());
+        Assertions.assertEquals(80, service.getAggregateTotal());
     }  
     
     @Test
     public void validateInvoiceForParticularUserIdShouldAnswerWithTrue() {
     	
-    	ArrayList<Cab> cabList = new  ArrayList<>(); 
-    	Cab cabObject1 = new Cab(1, 2, 10);
+    	ArrayList<Ride> cabList = new  ArrayList<>(); 
+    	Ride cabObject1 = new Ride(1, 2, 10, "Normal");
     	cabList.add(cabObject1);
-    	Cab cabObject2 = new Cab(2, 2, 10);
+    	Ride cabObject2 = new Ride(2, 2, 10, "Normal");
     	cabList.add(cabObject2);    	
-    	List<Cab> filteredList = service.getUserList(cabList, 1);
+    	List<Ride> filteredList = service.getUserList(cabList, 1);
 		service.invoiceGenerator(filteredList);
     	
         Assertions.assertEquals(30.0, service.getAggregateTotal());

@@ -1,15 +1,17 @@
 package com.cabinvoice_generator_day_30;
 
-public class Cab {
+public class Ride {
 	
 	int userId;
 	float distance;
 	float time;
+	String rideType;
 	
-    public Cab(int userId, float distance, float time) {
+    public Ride(int userId, float distance, float time, String rideType) {
     	this.userId = userId;
 		this.distance = distance;
 		this.time = time;
+		this.rideType = rideType;
 	}
     public int getUserId() {
     	return userId;
