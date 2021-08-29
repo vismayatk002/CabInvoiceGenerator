@@ -8,9 +8,9 @@ public class CabService {
 	float distance;
 	float time;
 	float totalFare;
-	int PRICE_PER_KM = 10;
-	int PRICE_PER_MIN = 1;
-	int MIN_FARE = 5;
+	final int PRICE_PER_KM = 10;
+	final int PRICE_PER_MIN = 1;
+	final int MIN_FARE = 5;
 	
     public float invoiceGenerator(ArrayList<Cab> cabList) {
 		
